@@ -22,7 +22,7 @@ helloworld_grpc.pb.go
 ```
 
 #### Tips
-Generate documentation
+Generate API documentation
 ```sh
 docker run --rm -v $(pwd):/data ghcr.io/redocly/redoc/cli:v2.0.0-rc.72 build helloworld.swagger.json -o helloworld.html
 ```
