@@ -1,5 +1,5 @@
 # goprotoc
-The protocol buffer compiler with plugins: protoc-gen-go, protoc-gen-go-grpc, protoc-gen-grpc-gateway, protoc-gen-openapiv2 and .proto files.
+The protocol buffer compiler **protoc** with plugins: **protoc-gen-go**, **protoc-gen-go-grpc**, **protoc-gen-grpc-gateway**, **protoc-gen-openapiv2** and **.proto** files.
 
 ### Usage
 ```sh
