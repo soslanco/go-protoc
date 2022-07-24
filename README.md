@@ -3,7 +3,7 @@ The protocol buffer compiler **protoc** with plugins: **protoc-gen-go**, **proto
 
 ### Usage
 ```sh
-docker run -it -v $(pwd):/code -w /code soslanco/goprotoc \
+docker run --rm -v $(pwd):/code -w /code soslanco/goprotoc \
   --go_out . --go_opt paths=source_relative\
   --go-grpc_out . --go-grpc_opt paths=source_relative \
   --grpc-gateway_out . \
@@ -19,4 +19,10 @@ helloworld.pb.go
 helloworld.pb.gw.go    
 helloworld.swagger.json
 helloworld_grpc.pb.go  
+```
+
+#### Tips
+Generate documentation
+```sh
+docker run --rm -v $(pwd):/data ghcr.io/redocly/redoc/cli:v2.0.0-rc.72 build helloworld.swagger.json -o helloworld.html
 ```
