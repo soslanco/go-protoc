@@ -2,6 +2,7 @@
 The protocol buffer compiler **protoc** with plugins: **protoc-gen-go**, **protoc-gen-go-grpc**, **protoc-gen-grpc-gateway**, **protoc-gen-openapiv2** and **.proto** files.
 
 ### Usage
+ Generate gRPC code and swagger.json file.
 ```sh
 docker run --rm -v $(pwd):/code -w /code soslanco/go-protoc \
   --go_out . --go_opt paths=source_relative \
@@ -13,7 +14,7 @@ docker run --rm -v $(pwd):/code -w /code soslanco/go-protoc \
   --openapiv2_opt logtostderr=true \
   helloworld.proto
 ```
-Output:
+output:
 ```
 helloworld.pb.go       
 helloworld.pb.gw.go    
@@ -22,7 +23,7 @@ helloworld_grpc.pb.go
 ```
 
 #### Tips
-Generate API documentation
+Generate API documentation.
 ```sh
 docker run --rm -v $(pwd):/data ghcr.io/redocly/redoc/cli:v2.0.0-rc.72 build helloworld.swagger.json -o helloworld.html
 ```
