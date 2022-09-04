@@ -1,4 +1,5 @@
-FROM golang:latest as build
+FROM golang:latest as builder
+LABEL stage=builder
 
 ENV GOBIN=$GOPATH/bin
 
@@ -52,5 +53,5 @@ RUN mkdir -p /grpc && \
     rm -fR /grpc$GOPATH
 
 FROM alpine:latest
-COPY --from=build /grpc /
+COPY --from=builder /grpc /
 ENTRYPOINT ["protoc"]
