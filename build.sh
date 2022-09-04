@@ -1,9 +1,9 @@
 #!/bin/sh
 
 docker pull soslanco/go-protoc
-VER_CUR=`docker run soslanco/go-protoc --version | awk '{print $2}'`
+VER_CUR=`docker run --rm soslanco/go-protoc --version | awk '{print $2}'`
 docker build --no-cache -t soslanco/go-protoc .
-VER=`docker run soslanco/go-protoc --version | awk '{print $2}'`
+VER=`docker run --rm soslanco/go-protoc --version | awk '{print $2}'`
 
 echo
 if [ "$VER" = "$VER_CUR" ]; then
