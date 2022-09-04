@@ -28,7 +28,7 @@ RUN GRPC_GATEWAY_VER=`curl -sI https://github.com/grpc-ecosystem/grpc-gateway/re
     mkdir /tmp/grpc-gateway && \
     curl -sL https://github.com/grpc-ecosystem/grpc-gateway/archive/refs/tags/v$GRPC_GATEWAY_VER.tar.gz | tar -zxC /tmp/grpc-gateway --strip-components=1 && \
     cd /tmp/grpc-gateway && \
-    find ./protoc-gen-openapiv2/ -name "*.proto" -type f -print0 | xargs -0 -I '{}' cp --parents '{}' $PROTODIR && \
+    find ./protoc-gen-openapiv2/ -name "*.proto" -type f -print0 | xargs -0 -I '{}' cp -p --parents '{}' $PROTODIR && \
     rm -fR /tmp/grpc-gateway
 
 # protoc-gen-go, protoc-gen-go-grpc
@@ -39,7 +39,7 @@ RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 RUN mkdir /tmp/googleapis && \
     git clone --depth=1 https://github.com/googleapis/googleapis.git /tmp/googleapis && \
     cd /tmp/googleapis && \
-    find . -name "*.proto" -type f -print0 | xargs -0 -I '{}' cp --parents '{}' $PROTODIR && \
+    find . -name "*.proto" -type f -print0 | xargs -0 -I '{}' cp -p --parents '{}' $PROTODIR && \
     rm -fR /tmp/googleapis
 
 RUN mkdir -p /grpc && \
