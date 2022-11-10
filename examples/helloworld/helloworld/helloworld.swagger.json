@@ -39,7 +39,7 @@
             "name": "name",
             "description": "The name field.",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],

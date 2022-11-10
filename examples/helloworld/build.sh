@@ -16,7 +16,7 @@ docker run --rm -v $(pwd):/code -w /code soslanco/go-protoc \
 
 # Generate documentation
 # (helloworld.html)
-docker run --rm -v $(pwd):/data ghcr.io/redocly/redoc/cli:v2.0.0-rc.76 build helloworld.swagger.json -o helloworld.html
+docker run --rm -v $(pwd):/data ghcr.io/redocly/redoc/cli build helloworld.swagger.json -o helloworld.html
 
 cd ../client
 go build
