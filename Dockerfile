@@ -1,4 +1,4 @@
-FROM golang:latest as builder
+FROM golang:latest AS builder
 LABEL stage=builder
 
 ENV GOBIN=$GOPATH/bin
@@ -34,6 +34,7 @@ RUN GRPC_GATEWAY_VER=`curl -sI https://github.com/grpc-ecosystem/grpc-gateway/re
 # protoc-gen-go, protoc-gen-go-grpc
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+RUN go install github.com/favadi/protoc-go-inject-tag@latest
 
 # googleapis .proto files
 RUN mkdir /tmp/googleapis && \

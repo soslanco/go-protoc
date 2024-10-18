@@ -75,11 +75,7 @@ func request_HW_HelloWorldPrefix_0(ctx context.Context, marshaler runtime.Marsha
 	var protoReq HelloWorldPrefixRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Prefix); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.Prefix); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -99,11 +95,7 @@ func local_request_HW_HelloWorldPrefix_0(ctx context.Context, marshaler runtime.
 	var protoReq HelloWorldPrefixRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Prefix); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.Prefix); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -123,6 +115,7 @@ func local_request_HW_HelloWorldPrefix_0(ctx context.Context, marshaler runtime.
 // UnaryRPC     :call HWServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterHWHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterHWHandlerServer(ctx context.Context, mux *runtime.ServeMux, server HWServer) error {
 
 	mux.Handle("GET", pattern_HW_HelloWorld_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -181,21 +174,21 @@ func RegisterHWHandlerServer(ctx context.Context, mux *runtime.ServeMux, server 
 // RegisterHWHandlerFromEndpoint is same as RegisterHWHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterHWHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-	conn, err := grpc.Dial(endpoint, opts...)
+	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
 	}
 	defer func() {
 		if err != nil {
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 			return
 		}
 		go func() {
 			<-ctx.Done()
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 		}()
 	}()
@@ -213,7 +206,7 @@ func RegisterHWHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.Cl
 // to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "HWClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "HWClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "HWClient" to call the correct interceptors.
+// "HWClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterHWHandlerClient(ctx context.Context, mux *runtime.ServeMux, client HWClient) error {
 
 	mux.Handle("GET", pattern_HW_HelloWorld_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
