@@ -4,7 +4,7 @@ The protocol buffer compiler **protoc** with plugins: **protoc-gen-go**, **proto
 ### Usage
 #### Generate gRPC code and swagger.json file.
 ```sh
-docker run --rm -v $(pwd):/code -w /code soslanco/go-protoc \
+docker run --rm -v $(pwd):/code -w /code soslanco/go-protoc:latest \
   --go_out . --go_opt paths=source_relative \
   --go-grpc_out . --go-grpc_opt paths=source_relative \
   --grpc-gateway_out . \
