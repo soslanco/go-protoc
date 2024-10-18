@@ -117,7 +117,7 @@ type HelloWorldPrefixRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name   string  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Name   string  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty" tag1:"value1" tag2:"value2"` // @gotags: tag1:"value1" tag2:"value2"
 	Prefix *Prefix `protobuf:"bytes,2,opt,name=prefix,proto3" json:"prefix,omitempty"`
 }
 

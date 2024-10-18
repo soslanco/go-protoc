@@ -76,6 +76,7 @@
           },
           {
             "name": "name",
+            "description": "@gotags: tag1:\"value1\" tag2:\"value2\"",
             "in": "query",
             "required": false,
             "type": "string"

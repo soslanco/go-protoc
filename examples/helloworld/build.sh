@@ -18,6 +18,9 @@ docker run --rm -v $(pwd):/code -w /code soslanco/go-protoc \
 # (helloworld.html)
 docker run --rm -v $(pwd):/data ghcr.io/redocly/redoc/cli build helloworld.swagger.json -o helloworld.html
 
+# Inject tags
+docker run --rm -v $(pwd):/code -w /code --entrypoint protoc-go-inject-tag soslanco/go-protoc:latest -input="*.pb.go"
+
 cd ../client
 go build
 

@@ -26,7 +26,7 @@ message HelloWorldResponse {
 }
 
 message HelloWorldPrefixRequest {
-  string name = 1;
+  string name = 1 [json_name = "name"]; // @gotags: tag1:"value1" tag2:"value2"
   Prefix prefix = 2;
 }
 
